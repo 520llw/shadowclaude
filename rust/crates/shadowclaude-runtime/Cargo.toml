@@ -1,0 +1,66 @@
+[package]
+name = "shadowclaude-runtime"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["ShadowClaude Team <team@shadowclaude.ai>"]
+description = "Tokio-based async runtime with concurrency control, task scheduling, and cancellation"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/shadowclaude/runtime"
+keywords = ["async", "runtime", "scheduler", "tokio", "concurrency"]
+categories = ["asynchronous", "concurrency"]
+
+[features]
+default = ["full"]
+full = ["tracing", "metrics", "deadline-detection"]
+tracing = ["dep:tracing", "dep:tracing-subscriber"]
+metrics = ["dep:metrics"]
+deadline-detection = []
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+tokio-util = { version = "0.7", features = ["time", "rt"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+anyhow = "1.0"
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
+parking_lot = "0.12"
+crossbeam = "0.8"
+futures = "0.3"
+futures-util = "0.3"
+async-trait = "0.1"
+pin-project = "1.1"
+pin-project-lite = "0.2"
+metrics = { version = "0.22", optional = true }
+chrono = "0.4"
+uuid = { version = "1.6", features = ["v4"] }
+dashmap = "5.5"
+rayon = "1.8"
+async-channel = "2.1"
+flume = "0.11"
+once_cell = "1.19"
+smallvec = { version = "1.13", features = ["const_generics"] }
+indexmap = "2.1"
+heapless = "0.8"
+atomic-wait = "1.1"
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = { version = "0.5", features = ["async_tokio"] }
+proptest = "1.4"
+mockall = "0.12"
+claims = "0.7"
+stress-test = "0.1"
+
+[[bench]]
+name = "scheduler_benchmark"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true

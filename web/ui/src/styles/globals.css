@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-shadow-600;
+  }
+  
+  body {
+    @apply bg-shadow-900 text-shadow-100 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  code, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.shadow.600') transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: theme('colors.shadow.600');
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.shadow.500');
+  }
+}
+
+/* Monaco Editor Customizations */
+.monaco-editor {
+  .margin {
+    background-color: theme('colors.shadow.900') !important;
+  }
+  
+  .monaco-editor-background {
+    background-color: theme('colors.shadow.900') !important;
+  }
+}
+
+/* XTerm.js Customizations */
+.xterm {
+  padding: 8px;
+  
+  .xterm-viewport {
+    background-color: theme('colors.shadow.900') !important;
+  }
+}
+
+/* Selection */
+::selection {
+  background-color: theme('colors.accent.blue');
+  color: theme('colors.shadow.900');
+}
